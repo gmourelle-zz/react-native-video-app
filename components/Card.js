@@ -1,27 +1,48 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
 
-const Card = () => {
+import PropTypes from "prop-types";
+
+import {
+  View,
+  Text,
+  Image,
+  TouchableHighlight,
+  StyleSheet,
+  Linking
+} from "react-native";
+
+const Card = ({ title, image, description, url }) => {
   const imageSource = {
-    uri:
-      "https://www.revistawelldone.cl/wp-content/uploads/2017/12/avengersinfinitywar-1494357736132_1280w.jpg"
+    uri: image
+  };
+
+  const onPressButton = () => {
+    Linking.openURL(url);
   };
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>CARD</Text>
+      <Text style={styles.title}>{title}</Text>
       <Image style={styles.mainImage} source={imageSource} />
+      <Text sytle={styles.description}>{description}</Text>
+      <TouchableHighlight
+        underlayColor="#ff6659"
+        onPress={onPressButton}
+        style={styles.button}
+      >
+        <Text style={styles.buttonText}>Ver mas</Text>
+      </TouchableHighlight>
     </View>
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    //flex: 0,
-    backgroundColor: "#F00",
-    height: 200,
-    width: 300
-    //padding: 10,
-    //borderRadius: 3
+    flex: 0,
+    backgroundColor: "#fff",
+    height: 500,
+    width: 300,
+    padding: 10,
+    borderRadius: 3
   },
   title: {
     fontSize: 30,
@@ -55,5 +76,11 @@ const styles = StyleSheet.create({
     color: "#000"
   }
 });
+
+Card.propTypes = {
+  title: PropTypes.string.isRequired,
+  description: PropTypes.string,
+  image: PropTypes.string.isRequired
+};
 
 export default Card;
